@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Map · capability TEST (keyless) — NIPPON FOLK</title>
+<title>Map · capability TEST (keyless route link) — NIPPON FOLK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Shippori+Mincho:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ===== NIPPON FOLK · MAP capability TEST — keyless embed, click-to-load cookie gate. NOT the live map. ===== */
+/* ===== NIPPON FOLK · MAP capability TEST — keyless DEEP-LINK to the real Google route. No key, no billing, no embed. NOT the live map. ===== */
 :root{--paper:#FAF8F2;--ink:#1E1A15;--sub:#736A5E;--line:#E0DACD;--ame:#8E5E32;--green:#5C6149}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -31,31 +31,35 @@ a{color:inherit}
 .intro h1{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:clamp(34px,4.6vw,58px);line-height:1.02}
 .intro .stand{font-size:clamp(15px,1.5vw,18px);line-height:1.55;color:#3a342c;margin-top:18px;font-weight:300;max-width:560px}
 
-/* map frame */
-.mapbox{position:relative;border:1px solid var(--ink);min-height:520px;margin-top:2vh;background:#EFEBE1;overflow:hidden}
-.mapbox iframe{width:100%;height:520px;border:0;display:block}
+/* route module — branded card that deep-links to the real Google route (keyless) */
+.mod{display:grid;grid-template-columns:1.25fr 1fr;border:1px solid var(--ink);min-height:480px;margin-top:2vh}
+.routeart{position:relative;background:#EFEBE1;overflow:hidden;border-right:1px solid var(--ink)}
+.routeart svg{width:100%;height:100%;display:block;position:absolute;inset:0}
+.routeart .tag{position:absolute;top:14px;left:14px;z-index:3;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);background:rgba(250,248,242,.9);padding:6px 10px;border:1px solid var(--line)}
+.routeart .attr{position:absolute;right:12px;bottom:11px;z-index:3;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.04em;color:#a39c8f}
+.mk text{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;fill:#FAF8F2}
 
-/* consent gate (shown until user accepts) */
-.gate{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 28px;background:#EFEBE1}
-.gate .ey{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ame);margin-bottom:16px}
-.gate h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(22px,2.3vw,30px);line-height:1.1;max-width:520px}
-.gate p{font-size:14.5px;line-height:1.6;color:#2b261f;margin-top:16px;max-width:500px;font-weight:300}
-.gate .row{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;justify-content:center}
-.btn{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:13px 22px;border:1px solid var(--ink);cursor:pointer;background:transparent;color:var(--ink);transition:.15s}
-.btn--accept{background:var(--ink);color:var(--paper)}
-.btn--accept:hover{background:var(--ame);border-color:var(--ame)}
-.btn--decline:hover{background:#e7e1d4}
-.gate .fine{font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.04em;color:var(--sub);margin-top:22px;max-width:460px;line-height:1.5}
-.gate .state{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);margin-top:14px}
-.gate .state b{color:var(--ame)}
+.panel{padding:40px 40px;display:flex;flex-direction:column}
+.panel .ey{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ame);margin-bottom:14px}
+.panel h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(24px,2.4vw,32px);line-height:1.08}
+.panel .summary{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.04em;color:var(--sub);margin-top:14px}
+.panel .summary b{color:var(--ame);font-weight:600}
+.open{align-self:flex-start;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--paper);font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:14px 22px;margin:22px 0 4px;transition:.15s}
+.open:hover{background:var(--ame)}
+.stops{margin-top:18px;border-top:1px solid var(--ink)}
+.stop{display:grid;grid-template-columns:34px 1fr auto;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.stop .pin{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;color:#FAF8F2}
+.stop h3{font-family:'Playfair Display',serif;font-weight:500;font-size:16px;line-height:1.1}
+.stop h3 .ja{font-family:'Shippori Mincho',serif;font-size:11px;color:var(--sub);letter-spacing:.14em;margin-left:6px}
+.stop .go{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ame)}
 
-.note{margin:34px 0 2vh;padding:22px 26px;border:1px dashed var(--line);background:#fff;font-size:13.5px;line-height:1.6;color:#3a342c;max-width:760px}
+.note{margin:34px 0 2vh;padding:22px 26px;border:1px dashed var(--line);background:#fff;font-size:13.5px;line-height:1.6;color:#3a342c;max-width:780px}
 .note b{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ame);display:block;margin-bottom:8px}
 .note code{background:#f3efe4;padding:1px 6px;border-radius:3px;font-size:12px}
 
 .foot{border-top:1.5px solid var(--ink);padding:36px 48px;margin-top:5vh;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sub)}
 .foot .brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.26em;text-transform:none;color:var(--ink)}
-@media(max-width:900px){.wrap{padding:0 24px}.mast{padding:18px 24px}.mast nav{display:none}.mapbox iframe,.mapbox{min-height:440px}.mapbox iframe{height:440px}}
+@media(max-width:900px){.wrap{padding:0 24px}.mast{padding:18px 24px}.mast nav{display:none}.mod{grid-template-columns:1fr}.routeart{min-height:300px;border-right:none;border-bottom:1px solid var(--ink)}}
 </style>
 </head>
 <body>
@@ -70,31 +74,62 @@ a{color:inherit}
 <div class="wrap">
   <div class="intro">
     <div class="label">Capability test · follow the water</div>
-    <h1>Does the real map draw?</h1>
-    <div class="stand">A keyless, no-billing embed of the upper Chikugo basin — centred on the unsigned-pottery valley of Onta (小鹿田焼の里). Loaded only after you consent.</div>
+    <h1>The real route, for free.</h1>
+    <div class="stand">A keyless, no-billing <em>deep link</em> to the live Google route — Onta → Koishiwara → Hita, drawn on Google&rsquo;s own map. No API key, no embed, no cookies set on this site.</div>
   </div>
 
-  <!-- MAP — iframe is injected by JS only AFTER the user clicks Accept (click-to-load) -->
-  <div class="mapbox" id="mapbox">
-    <div class="gate" id="gate">
-      <div class="ey">Cookie consent · required for Google Maps</div>
-      <h2>This map sets Google cookies.</h2>
-      <p>Google Maps may store cookies on your device to render the map. Non-essential cookies are <strong>declined by default</strong> — nothing loads until you accept.</p>
-      <div class="row">
-        <button class="btn btn--accept" id="accept" type="button">Accept &amp; load map</button>
-        <button class="btn btn--decline" id="decline" type="button">Decline (keep off)</button>
+  <div class="mod">
+    <!-- LEFT · NIPPON FOLK route motif (decorative · the real cartography opens on Google) -->
+    <div class="routeart">
+      <span class="tag">◗ Opens the live Google route ↗</span>
+      <svg viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Route motif">
+        <rect width="640" height="480" fill="#F3F0E7"/>
+        <path d="M-30,210 C 150,170 250,250 400,205 S 660,140 780,210" fill="none" stroke="#8E5E32" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+        <path d="M-30,224 C 165,184 265,264 415,219 S 675,154 795,224" fill="none" stroke="#5C6149" stroke-width="1.1" stroke-dasharray="1 9" opacity="0.5"/>
+        <text x="34" y="186" font-family="Playfair Display,serif" font-style="italic" font-size="15" fill="#8E5E32" opacity="0.85">the Chikugo</text>
+        <path d="M150,150 L430,110 L470,360" fill="none" stroke="#8E5E32" stroke-width="1.6" stroke-dasharray="2 7" stroke-linecap="round" opacity="0.75"/>
+        <g class="mk">
+          <circle cx="150" cy="150" r="16" fill="#8E5E32"/><text x="150" y="155" text-anchor="middle">1</text>
+          <circle cx="430" cy="110" r="16" fill="#8E5E32"/><text x="430" y="115" text-anchor="middle">2</text>
+          <circle cx="470" cy="360" r="16" fill="#5C6149"/><text x="470" y="365" text-anchor="middle">3</text>
+        </g>
+      </svg>
+      <div class="attr">Google</div>
+    </div>
+
+    <!-- RIGHT · keyless deep-link panel -->
+    <div class="panel">
+      <div class="ey">Route · Chikugo upper basin · one day</div>
+      <h2>Onta × Koishiwara —<br>the river is the line</h2>
+      <div class="summary">Driving · via Route 211 · <b>~1 h 22 m</b> · <b>57.1 km</b></div>
+      <a class="open" id="openroute" href="https://www.google.com/maps/dir/?api=1&amp;origin=33.42774,130.91105&amp;destination=33.31334,130.93092&amp;waypoints=33.46588,130.83512&amp;travelmode=driving" target="_blank" rel="noopener noreferrer">▸ Open the route on Google Maps ↗</a>
+
+      <div class="stops">
+        <a class="stop" href="https://www.google.com/maps/search/?api=1&amp;query=33.42774,130.91105" target="_blank" rel="noopener noreferrer">
+          <span class="pin" style="background:#8E5E32">1</span>
+          <h3>Onta Ware village<span class="ja">小鹿田焼の里</span></h3>
+          <span class="go">View ↗</span>
+        </a>
+        <a class="stop" href="https://www.google.com/maps/search/?api=1&amp;query=33.46588,130.83512" target="_blank" rel="noopener noreferrer">
+          <span class="pin" style="background:#8E5E32">2</span>
+          <h3>Koishiwara hall<span class="ja">小石原焼 伝統産業会館</span></h3>
+          <span class="go">View ↗</span>
+        </a>
+        <a class="stop" href="https://www.google.com/maps/search/?api=1&amp;query=33.31334,130.93092" target="_blank" rel="noopener noreferrer">
+          <span class="pin" style="background:#5C6149">3</span>
+          <h3>Hita Onsen<span class="ja">日田温泉</span></h3>
+          <span class="go">View ↗</span>
+        </a>
       </div>
-      <div class="state" id="state">Status: <b>declined</b> (default) — map not loaded</div>
-      <div class="fine">Test only. Map © Google. We add no API key and no billing here; the styled monochrome map with route pins is built in Phase B. Your choice is remembered on this device only.</div>
     </div>
   </div>
 
   <div class="note">
     <b>What this page verifies</b>
-    ① The real Google map draws on production (<code>nipponfolk.com</code>, HTTPS) with <strong>no API key / no billing</strong>.<br>
-    ② No mixed-content (the embed loads over HTTPS).<br>
-    ③ The cookie-consent gate works: non-essential is <strong>declined by default</strong>, the map iframe is injected <strong>only after Accept</strong> (click-to-load).<br>
-    <br>The live <code>/map/</code> keeps its NIPPON FOLK monochrome mock + “Phase B” label. Styled tiles, route polyline and Places-wired pins are Phase B (needs key + billing).
+    ① A <strong>keyless / no-billing</strong> link opens the <strong>real Google route</strong> (Onta → Koishiwara → Hita, driving, Route 211, ~1h22m / 57.1km) on production <code>nipponfolk.com</code>.<br>
+    ② <strong>No API key, no embed, no billing</strong> — it is the Google Maps URLs API (a plain outbound link).<br>
+    ③ <strong>Privacy:</strong> because nothing is embedded, <strong>no Google cookies are set on nipponfolk.com</strong>. Google&rsquo;s own consent appears on Google&rsquo;s site when the link opens. (So the embed-style cookie gate is not needed for a link-out — flagged to みんび.)
+    <br><br>The live <code>/map/</code> keeps its NIPPON FOLK monochrome mock + “Phase B” label. <strong>This deep link is exactly what the live “▸ Open the route” button should point to</strong> — so the map page can be functional now, for free. Phase B (Maps JS API + key + billing) becomes an aesthetic upgrade (styled tiles / Places cards), not a requirement.
   </div>
 </div>
 
@@ -103,46 +138,4 @@ a{color:inherit}
   <div>Capability test · not indexed · Kyūshū &amp; beyond</div>
 </footer>
 
-<script>
-(function(){
-  // Keyless privacy-by-default Google Maps embed. Centre: Onta-yaki no sato (Sarayama), 小鹿田焼の里.
-  var EMBED = "https://maps.google.com/maps?q=33.42774,130.91105&z=13&hl=en&output=embed";
-  var box = document.getElementById('mapbox');
-  var gate = document.getElementById('gate');
-  var state = document.getElementById('state');
-  var KEY = 'nf_map_consent';
-
-  function loadMap(){
-    if (document.getElementById('nf-map-iframe')) return;
-    var f = document.createElement('iframe');
-    f.id = 'nf-map-iframe';
-    f.src = EMBED;
-    f.loading = 'lazy';
-    f.referrerPolicy = 'no-referrer-when-downgrade';
-    f.title = 'Onta-yaki no sato — Google Maps (keyless test embed)';
-    f.setAttribute('allowfullscreen','');
-    box.appendChild(f);
-    gate.style.display = 'none';
-  }
-  function decline(){
-    // default state — ensure no iframe present
-    var ex = document.getElementById('nf-map-iframe');
-    if (ex) ex.remove();
-    gate.style.display = 'flex';
-    state.innerHTML = 'Status: <b>declined</b> — map not loaded';
-  }
-
-  // Default = declined. Only auto-load if user previously accepted on THIS device.
-  try { if (localStorage.getItem(KEY) === 'accepted') { loadMap(); } } catch(e){}
-
-  document.getElementById('accept').addEventListener('click', function(){
-    try { localStorage.setItem(KEY,'accepted'); } catch(e){}
-    loadMap();
-  });
-  document.getElementById('decline').addEventListener('click', function(){
-    try { localStorage.setItem(KEY,'declined'); } catch(e){}
-    decline();
-  });
-})();
-</script>
 </body></html>
