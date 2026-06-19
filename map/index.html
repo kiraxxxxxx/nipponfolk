@@ -30,7 +30,8 @@ a{color:inherit}
 .mod{display:grid;grid-template-columns:1.45fr 1fr;border:1px solid var(--ink);min-height:660px;margin-top:3vh}
 
 /* LEFT — styled map area (monochrome mock of the real Places map; live tiles Phase B) */
-.map{position:relative;background:#EFEBE1;overflow:hidden;border-right:1px solid var(--ink)}
+.map{position:relative;display:block;background:#EFEBE1;overflow:hidden;border-right:1px solid var(--ink);cursor:pointer;text-decoration:none}
+.map:hover .map__tag{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .map svg{width:100%;height:100%;display:block;position:absolute;inset:0}
 .map__tag{position:absolute;top:14px;left:14px;z-index:3;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);background:rgba(250,248,242,.9);padding:6px 10px;border:1px solid var(--line)}
 .map__ctrl{position:absolute;left:14px;bottom:14px;z-index:3;display:flex;flex-direction:column;border:1px solid var(--line);background:rgba(250,248,242,.9)}
@@ -84,8 +85,8 @@ a{color:inherit}
   <!-- MAP MODULE: real (Places-wired) map, styled — left · NIPPON FOLK itinerary — right -->
   <div class="mod">
     <!-- LEFT · custom-styled map (mock of the live Places map; monochrome / paper) -->
-    <div class="map">
-      <span class="map__tag">◗ Live map · styled in Phase B</span>
+    <a class="map" href="https://www.google.com/maps/dir/?api=1&amp;origin=33.42774,130.91105&amp;destination=33.31334,130.93092&amp;waypoints=33.46588,130.83512&amp;travelmode=driving" target="_blank" rel="noopener noreferrer" aria-label="Open the live route on Google Maps">
+      <span class="map__tag">◗ Tap to open the live route on Google Maps ↗ · styled map coming</span>
       <svg viewBox="0 0 760 660" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Route map">
         <rect width="760" height="660" fill="#F3F0E7"/>
         <!-- "the river is the line" — watershed ART motif as the backbone (decorative · NOT cartography) -->
@@ -105,23 +106,23 @@ a{color:inherit}
       </svg>
       <div class="map__ctrl"><b>+</b><b>−</b></div>
       <div class="map__attr">Google</div>
-    </div>
+    </a>
 
     <!-- RIGHT · NIPPON FOLK-branded itinerary panel -->
     <div class="panel">
       <div class="ey">Route · Chikugo upper basin · one day</div>
       <h2>Onta × Koishiwara —<br>the river is the line</h2>
       <p class="lead">Split by the prefecture border, the upper Chikugo is one basin. From the unsigned-pottery valley of Onta, to its sister kiln across the line, to the hot-spring town the same river made. Every stop drawn from our own <em>visit · relations · cultural_sphere</em> data.</p>
-      <a class="open" href="#">▸ Open the route</a>
+      <a class="open" href="https://www.google.com/maps/dir/?api=1&amp;origin=33.42774,130.91105&amp;destination=33.31334,130.93092&amp;waypoints=33.46588,130.83512&amp;travelmode=driving" target="_blank" rel="noopener noreferrer">▸ Open the route on Google Maps ↗</a>
 
       <div class="daylab">Morning</div>
-      <a class="stop" href="/craft/kyushu/onta-ware/">
+      <a class="stop" href="https://www.google.com/maps/search/?api=1&amp;query=33.42774,130.91105" target="_blank" rel="noopener noreferrer">
         <div class="stop__img"><div class="stop__ph">器</div></div>
         <div><div class="tm">9:00 AM</div><h3>Onta Ware village<span class="ja">小鹿田焼の里</span></h3>
         <div class="meta"><b>★4.3</b> (660) · Tourist attraction · Wed closed</div>
         <div class="d">The long climbing kiln and the river-driven clay hammers.</div></div>
       </a>
-      <a class="stop" href="/craft/kyushu/onta-ware/">
+      <a class="stop" href="https://www.google.com/maps/search/?api=1&amp;query=33.42767,130.91118" target="_blank" rel="noopener noreferrer">
         <div class="stop__img"><div class="stop__ph">記</div></div>
         <div><div class="tm">9:40 AM</div><h3>Onta Ceramic Hall<span class="ja">陶芸館</span></h3>
         <div class="meta">Free entry · EN materials · Wed closed</div>
@@ -129,7 +130,7 @@ a{color:inherit}
       </a>
 
       <div class="daylab">Midday · across the border</div>
-      <a class="stop" href="/dictionary/">
+      <a class="stop" href="https://www.google.com/maps/search/?api=1&amp;query=33.46588,130.83512" target="_blank" rel="noopener noreferrer">
         <div class="stop__img"><div class="stop__ph">花</div></div>
         <div><div class="tm">11:30 AM</div><h3>Koishiwara<span class="ja">小石原焼 伝統産業会館</span></h3>
         <div class="meta">Tōhō, Fukuoka · Tue closed</div>
@@ -137,12 +138,12 @@ a{color:inherit}
       </a>
 
       <div class="daylab">Afternoon</div>
-      <div class="stop stop--soon" >
+      <a class="stop" href="https://www.google.com/maps/search/?api=1&amp;query=33.31334,130.93092" target="_blank" rel="noopener noreferrer">
         <div class="stop__img"><div class="stop__ph">湯</div></div>
         <div><div class="tm">2:00 PM</div><h3>Hita Onsen<span class="ja">日田温泉</span></h3>
         <div class="meta">Mikuma river · cormorant fishing</div>
         <div class="d">The river town the pottery was born above — and the valley's spring greens on the table.</div></div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
