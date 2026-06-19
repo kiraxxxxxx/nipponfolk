@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onta Ware — NIPPON FOLK · 02 Casa Feature</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Shippori+Mincho:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FAF8F2;--ink:#1E1A15;--sub:#736A5E;--line:#E0DACD;--ame:#8E5E32;--green:#5C6149}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:'Spectral',serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:0 56px}
+.label{font-family:'Inter',sans-serif;font-weight:500;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
+.ja{font-family:'Shippori Mincho',serif}
+
+/* masthead */
+.mast{display:flex;justify-content:space-between;align-items:center;padding:26px 56px;border-bottom:1.5px solid var(--ink)}
+.mast .brand{font-family:'Playfair Display',serif;font-size:24px;letter-spacing:.28em}
+.mast nav{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);display:flex;gap:34px}
+.mast nav a{color:var(--sub);text-decoration:none}
+.mast nav a.on{color:var(--ink)}
+
+/* feature head */
+.fhead{padding:64px 0 40px;display:grid;grid-template-columns:1fr;gap:0;text-align:center;max-width:980px;margin:0 auto}
+.fhead .label{color:var(--ame);margin-bottom:24px}
+.fhead h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(52px,7vw,94px);line-height:1.0;letter-spacing:-.01em}
+.fhead .ja{font-size:22px;letter-spacing:.5em;color:var(--sub);margin-top:22px}
+.fhead .stand{font-style:italic;font-size:clamp(20px,2.4vw,28px);color:#3a342c;margin-top:30px;font-weight:300}
+
+/* big hero */
+.bighero{margin:18px 0 0;height:74vh;min-height:560px;overflow:hidden}
+.bighero img{width:100%;height:100%;object-fit:cover;object-position:50% 46%}
+.bighero+.credit{font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub);padding:12px 0 0;text-align:right}
+
+/* article grid */
+.grid{display:grid;grid-template-columns:1fr 340px;gap:72px;padding:72px 0 40px;align-items:start}
+.art p{font-size:19px;line-height:1.74;margin-bottom:1.35em;color:#2b261f}
+.art p.intro{font-size:24px;line-height:1.6;font-weight:400}
+.art p.intro::first-letter{font-family:'Playfair Display',serif;font-size:3.4em;line-height:.72;float:left;padding:.06em .12em 0 0;color:var(--ame)}
+.art h2{font-family:'Playfair Display',serif;font-weight:500;font-size:30px;margin:48px 0 18px;font-style:italic}
+
+/* sidebar */
+.side{border-top:2px solid var(--ink);padding-top:22px;position:sticky;top:24px}
+.side h3{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ame);margin:26px 0 12px}
+.side h3:first-child{margin-top:0}
+.side .row{font-size:15px;line-height:1.5;padding:9px 0;border-bottom:1px solid var(--line);color:#332e26}
+.side .row small{display:block;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);margin-bottom:3px}
+.rel{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.rel a{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.04em;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:1px;padding:7px 12px}
+
+/* plate figure */
+.fig{display:grid;grid-template-columns:420px 1fr;gap:54px;align-items:center;padding:40px 0 72px;border-top:1px solid var(--line)}
+.fig img{width:100%;height:auto;display:block}
+.fig .cap .label{color:var(--ame);margin-bottom:16px}
+.fig .cap h2{font-family:'Playfair Display',serif;font-weight:500;font-size:34px;font-style:italic;margin-bottom:18px}
+.fig .cap p{font-size:17px;line-height:1.7;color:#2b261f}
+.fig .cap .tline{margin-top:20px;font-family:'Shippori Mincho',serif;font-size:18px;color:var(--sub);letter-spacing:.1em}
+
+/* scene strip */
+.strip{height:62vh;min-height:440px;overflow:hidden;margin:0 -56px}
+.strip img{width:100%;height:100%;object-fit:cover}
+
+/* context band */
+.ctx{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding:72px 0;border-bottom:1px solid var(--line)}
+.ctx div .label{color:var(--ame);margin-bottom:12px}
+.ctx div p{font-size:16px;line-height:1.6;color:#2b261f}
+.ctx div p b{font-family:'Playfair Display',serif;font-weight:500;font-style:italic}
+
+/* foot */
+.cta{text-align:center;padding:64px 0}
+.cta a{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--ame);padding-bottom:6px}
+.src{font-family:'Inter',sans-serif;font-size:10.5px;line-height:1.9;color:#9a9388;letter-spacing:.03em;padding:0 0 50px;max-width:840px}
+.src b{color:var(--sub);font-weight:500;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:8px}
+.foot{border-top:1.5px solid var(--ink);padding:40px 56px;display:flex;justify-content:space-between;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sub)}
+.foot .brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.26em;text-transform:none;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<!-- masthead -->
+<div class="mast">
+  <div class="brand">NIPPON FOLK</div>
+  <nav><a href="/">Feature</a><a href="#">Series</a><a href="/dictionary/" class="on">Dictionary</a><a href="/map/">Map</a></nav>
+</div>
+
+<div class="wrap">
+  <!-- feature head -->
+  <div class="fhead">
+    <div class="label">Feature · Craft · Kyūshū</div>
+    <h1>Onta Ware</h1>
+    <div class="ja">小鹿田焼</div>
+    <div class="stand">Made for the hand, not the shelf — a valley that has thrown the same clay since 1705.</div>
+  </div>
+</div>
+
+<!-- big hero -->
+<div class="bighero"><img src="/hero_onta_B.png" alt="Onta ware bowl"></div>
+<div class="wrap"><div class="credit">A single bowl · iron-dark clay, tobikanna, poured glaze</div></div>
+
+<div class="wrap">
+  <!-- article + sidebar -->
+  <div class="grid">
+    <div class="art">
+      <p class="intro">There are no famous names here. Onta ware is passed from parent to child, kiln to kiln — families who never took outside apprentices, which is exactly why three-hundred-year-old techniques survive intact.</p>
+      <p>Deep in the cedar mountains above Hita, a single valley called Sarayama has made the same pottery since 1705. The clay is dug twice a year by the whole village, then crushed by <em>karausu</em> — wooden hammers driven by the river itself, thudding day and night. The sound is listed among the hundred soundscapes Japan means to keep.</p>
+      <h2>The pattern is the tool’s own dance</h2>
+      <p>On a kicked wheel the potter cuts rhythm into the wet clay with a sprung blade, drags a loaded brush, or pours glaze in ribbons. No pictures are painted. It was the folk-craft thinker Yanagi Sōetsu who walked these hills in 1931 and called Onta the finest folk pottery in the world; the English potter Bernard Leach stayed three weeks in 1954 and carried the technique back to the West.</p>
+    </div>
+    <aside class="side">
+      <h3>Visit</h3>
+      <div class="row"><small>Where</small>Sarayama, Genei, Hita, Ōita</div>
+      <div class="row"><small>Access</small>30 min from Hita IC · bus from JR Hita Stn</div>
+      <div class="row"><small>Season</small>Pottery market every October · year-round kilns</div>
+      <h3>Sphere — the river is the line</h3>
+      <div class="row">Onta and its sister kiln Koishiwara, split by prefecture, share one watershed. <a href="/map/" style="color:var(--ame)">See the route →</a></div>
+      <h3>Wander on</h3>
+      <div class="rel"><a href="/map/">Koishiwara Ware</a><a href="/dictionary/">Beppu Bamboo</a><a href="/map/">Hita Onsen</a><a href="/dictionary/">Nakatsu Broom</a></div>
+      <h3>The deeper record</h3>
+      <div class="row">Sources, fact-status, and the people behind the kilns — the full archive opens as the field grows. <a href="#" style="color:var(--ame)">Coming →</a></div>
+    </aside>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- plate figure -->
+  <div class="fig">
+    <img src="/detail_tobikanna.png" alt="Tobikanna chatter marks">
+    <div class="cap">
+      <div class="label">The mark of the tool</div>
+      <h2>Tobikanna</h2>
+      <p>A sprung steel blade, held against the turning clay, chatters and jumps — leaving regular crescent skips around the wall. The “jumping plane.” No decoration is added; the rhythm <em>is</em> the decoration, and no two rows are quite the same.</p>
+      <div class="tline">飛び鉋 ・ 刷毛目 ・ 流し掛け</div>
+    </div>
+  </div>
+</div>
+
+<!-- scene strip -->
+<div class="wrap"><div class="strip"><img src="/scene_sarayama_sketch_v3_lane_1.png" alt="A potters' lane in Sarayama"></div><div class="credit" style="text-align:left;color:var(--sub)">Sarayama, the potters' valley · drawn from reference</div></div>
+
+<div class="wrap">
+  <!-- context band -->
+  <div class="ctx">
+    <div><div class="label">1931</div><p><b>Yanagi Sōetsu</b> walked the valley and named Onta the finest folk pottery in the world.</p></div>
+    <div><div class="label">1954</div><p><b>Bernard Leach</b> stayed three weeks and carried tobikanna back to the West.</p></div>
+    <div><div class="label">Protected</div><p>Important Intangible Cultural Property, <b>1995</b> · cultural landscape, <b>2008</b>.</p></div>
+  </div>
+  <div class="cta"><a href="#">Follow for the map ↗</a></div>
+  <div class="src"><b>Sources &amp; further reading</b>Yanagi Sōetsu, “The Mountain of Plates at Hita” (1931) · Bernard Leach, A Potter in Japan (1954) · Hita City official tourism · Nakagawa-Masashichi Shōten craft journal · MLIT Kyūshū Regional Bureau. Important Intangible Cultural Property (1995) · Protected Cultural Landscape (2008).</div>
+</div>
+<footer class="foot"><div class="brand">NIPPON FOLK</div><div>Dictionary / Craft / Onta Ware</div></footer>
+</body></html>

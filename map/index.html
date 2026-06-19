@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Map — Onta × Koishiwara · NIPPON FOLK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Shippori+Mincho:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== NIPPON FOLK · MAP v3 — NIPPON FOLK face over the real (Places-wired) map. Style mock; live API = Phase B ===== */
+:root{--paper:#FAF8F2;--ink:#1E1A15;--sub:#736A5E;--line:#E0DACD;--ame:#8E5E32;--green:#5C6149}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Spectral',serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1300px;margin:0 auto;padding:0 48px}
+.label{font-family:'Inter',sans-serif;font-weight:500;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
+a{color:inherit}
+.mast{display:flex;justify-content:space-between;align-items:center;padding:24px 48px;border-bottom:1.5px solid var(--ink)}
+.mast .brand{font-family:'Playfair Display',serif;font-size:23px;letter-spacing:.28em}
+.mast nav{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);display:flex;gap:32px}
+.mast nav a{color:var(--sub);text-decoration:none}.mast nav a.on{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px}
+
+.intro{padding:8vh 0 3vh;max-width:820px}
+.intro .label{color:var(--ame);margin-bottom:20px}
+.intro h1{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:clamp(40px,5.6vw,78px);line-height:1.0}
+.intro .stand{font-size:clamp(17px,1.7vw,21px);line-height:1.55;color:#3a342c;margin-top:20px;font-weight:300;max-width:560px}
+
+/* map module — split (real map left, branded itinerary right) */
+.mod{display:grid;grid-template-columns:1.45fr 1fr;border:1px solid var(--ink);min-height:660px;margin-top:3vh}
+
+/* LEFT — styled map area (monochrome mock of the real Places map; live tiles Phase B) */
+.map{position:relative;background:#EFEBE1;overflow:hidden;border-right:1px solid var(--ink)}
+.map svg{width:100%;height:100%;display:block;position:absolute;inset:0}
+.map__tag{position:absolute;top:14px;left:14px;z-index:3;font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);background:rgba(250,248,242,.9);padding:6px 10px;border:1px solid var(--line)}
+.map__ctrl{position:absolute;left:14px;bottom:14px;z-index:3;display:flex;flex-direction:column;border:1px solid var(--line);background:rgba(250,248,242,.9)}
+.map__ctrl b{font-family:'Inter',sans-serif;font-size:15px;color:var(--sub);padding:6px 11px;text-align:center}
+.map__ctrl b:first-child{border-bottom:1px solid var(--line)}
+.map__attr{position:absolute;right:12px;bottom:11px;z-index:3;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.04em;color:#a39c8f}
+/* marker glyph */
+.mk text{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;fill:#FAF8F2}
+
+/* RIGHT — branded itinerary panel */
+.panel{padding:46px 44px;display:flex;flex-direction:column;overflow:auto}
+.panel .ey{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ame);margin-bottom:18px}
+.panel h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(28px,2.6vw,38px);line-height:1.06}
+.panel .lead{font-size:15px;line-height:1.62;color:#2b261f;margin-top:18px}
+.panel .open{align-self:flex-start;display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:var(--paper);font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;padding:13px 20px;margin:26px 0 6px}
+.daylab{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);margin:30px 0 4px;padding-bottom:10px;border-bottom:1px solid var(--ink)}
+.stop{display:grid;grid-template-columns:74px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.stop__img{width:74px;height:74px;background:#e7e1d4;overflow:hidden;position:relative}
+.stop__img img{width:100%;height:100%;object-fit:cover}
+.stop__ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Shippori Mincho',serif;font-size:22px;color:var(--sub);opacity:.5}
+.stop .tm{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ame)}
+.stop h3{font-family:'Playfair Display',serif;font-weight:500;font-size:18px;margin-top:5px;line-height:1.12}
+.stop h3 .ja{font-family:'Shippori Mincho',serif;font-size:12px;color:var(--sub);letter-spacing:.16em;margin-left:6px}
+.stop .meta{font-family:'Inter',sans-serif;font-size:11px;color:var(--sub);margin-top:6px;letter-spacing:.02em}
+.stop .meta b{color:var(--ame);font-weight:500}
+.stop .d{font-style:italic;font-size:13.5px;line-height:1.5;color:#332e26;margin-top:8px;font-weight:300}
+
+.cta{text-align:center;padding:11vh 8vw}
+.cta a{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--ame);padding-bottom:6px}
+.foot{border-top:1.5px solid var(--ink);padding:40px 48px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sub)}
+.foot .brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.26em;text-transform:none;color:var(--ink)}
+@media(max-width:900px){.wrap{padding:0 24px}.mast{padding:18px 24px}.mast nav{display:none}
+ .mod{grid-template-columns:1fr}.map{min-height:420px;border-right:none;border-bottom:1px solid var(--ink)}}
+.card--soon,.stop--soon{cursor:default}.card--soon:hover .card__img img{transform:none}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <div class="brand">NIPPON FOLK</div>
+  <nav><a href="/">Feature</a><a href="#">Series</a><a href="/dictionary/">Dictionary</a><a href="/map/" class="on">Map</a></nav>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    <div class="label">The Map · follow the water</div>
+    <h1>The river is the line.</h1>
+    <div class="stand">A real day-route on the upper Chikugo — bowl, sister kiln, hot spring — drawn from our own visit &amp; relations data.</div>
+  </div>
+
+  <!-- MAP MODULE: real (Places-wired) map, styled — left · NIPPON FOLK itinerary — right -->
+  <div class="mod">
+    <!-- LEFT · custom-styled map (mock of the live Places map; monochrome / paper) -->
+    <div class="map">
+      <span class="map__tag">◗ Live map · styled in Phase B</span>
+      <svg viewBox="0 0 760 660" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-label="Route map">
+        <rect width="760" height="660" fill="#F3F0E7"/>
+        <!-- "the river is the line" — watershed ART motif as the backbone (decorative · NOT cartography) -->
+        <path d="M-30,300 C 180,250 300,358 470,300 S 770,212 900,298 1020,268"
+          fill="none" stroke="#8E5E32" stroke-width="2.4" stroke-linecap="round" opacity="0.8"/>
+        <path d="M-30,316 C 198,266 318,374 488,316 S 788,228 918,314 1020,284"
+          fill="none" stroke="#5C6149" stroke-width="1.1" stroke-dasharray="1 9" opacity="0.5"/>
+        <text x="40" y="262" font-family="Playfair Display,serif" font-style="italic" font-size="16" fill="#8E5E32" opacity="0.8">the Chikugo</text>
+        <!-- itinerary route 1→2→3 (slim dotted, connects the stops) -->
+        <path d="M520,250 L210,150 L600,480" fill="none" stroke="#8E5E32" stroke-width="1.5" stroke-dasharray="2 7" stroke-linecap="round" opacity="0.7"/>
+        <!-- numbered markers (ame=craft, green=tourism) -->
+        <g class="mk">
+          <circle cx="210" cy="150" r="17" fill="#8E5E32"/><text x="210" y="155" text-anchor="middle">2</text>
+          <circle cx="520" cy="250" r="17" fill="#8E5E32"/><text x="520" y="255" text-anchor="middle">1</text>
+          <circle cx="600" cy="480" r="17" fill="#5C6149"/><text x="600" y="485" text-anchor="middle">3</text>
+        </g>
+      </svg>
+      <div class="map__ctrl"><b>+</b><b>−</b></div>
+      <div class="map__attr">Google</div>
+    </div>
+
+    <!-- RIGHT · NIPPON FOLK-branded itinerary panel -->
+    <div class="panel">
+      <div class="ey">Route · Chikugo upper basin · one day</div>
+      <h2>Onta × Koishiwara —<br>the river is the line</h2>
+      <p class="lead">Split by the prefecture border, the upper Chikugo is one basin. From the unsigned-pottery valley of Onta, to its sister kiln across the line, to the hot-spring town the same river made. Every stop drawn from our own <em>visit · relations · cultural_sphere</em> data.</p>
+      <a class="open" href="#">▸ Open the route</a>
+
+      <div class="daylab">Morning</div>
+      <a class="stop" href="/craft/kyushu/onta-ware/">
+        <div class="stop__img"><div class="stop__ph">器</div></div>
+        <div><div class="tm">9:00 AM</div><h3>Onta Ware village<span class="ja">小鹿田焼の里</span></h3>
+        <div class="meta"><b>★4.3</b> (660) · Tourist attraction · Wed closed</div>
+        <div class="d">The long climbing kiln and the river-driven clay hammers.</div></div>
+      </a>
+      <a class="stop" href="/craft/kyushu/onta-ware/">
+        <div class="stop__img"><div class="stop__ph">記</div></div>
+        <div><div class="tm">9:40 AM</div><h3>Onta Ceramic Hall<span class="ja">陶芸館</span></h3>
+        <div class="meta">Free entry · EN materials · Wed closed</div>
+        <div class="d">The record — how a whole valley makes one pottery.</div></div>
+      </a>
+
+      <div class="daylab">Midday · across the border</div>
+      <a class="stop" href="/dictionary/">
+        <div class="stop__img"><div class="stop__ph">花</div></div>
+        <div><div class="tm">11:30 AM</div><h3>Koishiwara<span class="ja">小石原焼 伝統産業会館</span></h3>
+        <div class="meta">Tōhō, Fukuoka · Tue closed</div>
+        <div class="d">The sister kiln — and the flower-vessels it throws.</div></div>
+      </a>
+
+      <div class="daylab">Afternoon</div>
+      <div class="stop stop--soon" >
+        <div class="stop__img"><div class="stop__ph">湯</div></div>
+        <div><div class="tm">2:00 PM</div><h3>Hita Onsen<span class="ja">日田温泉</span></h3>
+        <div class="meta">Mikuma river · cormorant fishing</div>
+        <div class="d">The river town the pottery was born above — and the valley's spring greens on the table.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta"><a href="#">Follow for the map ↗</a></div>
+
+<footer class="foot">
+  <div class="brand">NIPPON FOLK</div>
+  <div>A field guide to living craft · Kyūshū &amp; beyond</div>
+</footer>
+
+<!-- ============================================================
+  PHASE B HANDOFF (Coody) — replace the .map mock SVG with a live Maps map.
+  The LEFT panel is the only mock; the RIGHT itinerary panel is final brand design (keep as built).
+  Maps JavaScript API (or Embed) · apply the style below to desaturate Google's default tiles to monochrome/paper.
+  place_id (pin · route · live info via Places):
+    1 器  Onta village      : ChIJ07WWjkdmQTURmU1IAk1gwCQ  (33.42774,130.91105)  marker #8E5E32
+      記 Onta ceramic hall  : ChIJXQGmLjFmQTURJhyn7eZsfYw  (33.42767,130.91118)  marker #8E5E32
+    2 花器 Koishiwara hall   : ChIJJco4UwplQTURcEeLzIlPrH8  (33.46588,130.83512)  marker #8E5E32
+    3 湯  Hita Onsen        : ChIJ77DXiThqQTUR_r_CNf0SGkI  (33.31334,130.93092)  marker #5C6149
+  Route polyline #8E5E32. Pull rating / hours / photo from Places for each stop card.
+  Custom style JSON (monochrome / paper — paste into Maps styles, or use a Cloud Map ID):
+  [
+   {"elementType":"geometry","stylers":[{"saturation":-100},{"lightness":10}]},
+   {"elementType":"labels.text.fill","stylers":[{"color":"#736A5E"}]},
+   {"elementType":"labels.text.stroke","stylers":[{"color":"#FAF8F2"}]},
+   {"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#F0ECE0"}]},
+   {"featureType":"poi","stylers":[{"visibility":"off"}]},
+   {"featureType":"transit","stylers":[{"visibility":"off"}]},
+   {"featureType":"road","elementType":"geometry","stylers":[{"color":"#E0DACD"}]},
+   {"featureType":"road","elementType":"labels.icon","stylers":[{"visibility":"off"}]},
+   {"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"simplified"}]},
+   {"featureType":"water","elementType":"geometry","stylers":[{"color":"#E6E1D4"}]},
+   {"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#C9C1B2"}]}
+  ]
+  API key / billing / cookie-consent = Phase B (Coody).
+============================================================ -->
+</body></html>

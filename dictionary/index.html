@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Dictionary — NIPPON FOLK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Shippori+Mincho:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== NIPPON FOLK · DICTIONARY 一覧 — 地域×カテゴリ, editorial cards (not 辞書っぽく) ===== */
+:root{--paper:#FAF8F2;--ink:#1E1A15;--sub:#736A5E;--line:#E0DACD;--ame:#8E5E32;--green:#5C6149}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Spectral',serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1240px;margin:0 auto;padding:0 56px}
+.label{font-family:'Inter',sans-serif;font-weight:500;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
+.ja{font-family:'Shippori Mincho',serif}
+a{color:inherit}
+
+/* masthead — solid (list page) */
+.mast{display:flex;justify-content:space-between;align-items:center;padding:26px 56px;border-bottom:1.5px solid var(--ink)}
+.mast .brand{font-family:'Playfair Display',serif;font-size:24px;letter-spacing:.28em}
+.mast nav{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);display:flex;gap:34px}
+.mast nav a{color:var(--sub);text-decoration:none}
+.mast nav a.on{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px}
+
+/* page head */
+.dhead{padding:9vh 0 5vh;max-width:880px}
+.dhead .label{color:var(--ame);margin-bottom:24px}
+.dhead h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(46px,6.4vw,88px);line-height:1.0;letter-spacing:-.01em}
+.dhead .stand{font-style:italic;font-size:clamp(19px,2vw,25px);line-height:1.5;color:#3a342c;margin-top:26px;font-weight:300;max-width:620px}
+
+/* filter bar — category (functional) + region (quiet) */
+.filter{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;margin-bottom:56px;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+.filter__grp{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.filter__lab{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--sub);margin-right:12px}
+.chip{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.08em;color:var(--sub);background:none;border:1px solid transparent;border-radius:1px;padding:7px 13px;cursor:pointer;transition:.15s}
+.chip:hover{color:var(--ink)}
+.chip.on{color:var(--ink);border-color:var(--ink)}
+.chip--cat.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* cards — large editorial, 3-col */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:46px 38px;padding-bottom:10vh}
+.card{text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.2s}
+.card.is-hidden{display:none}
+.card__img{aspect-ratio:3/4;overflow:hidden;background:var(--line);position:relative}
+.card__img img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.card:hover .card__img img{transform:scale(1.03)}
+.card__meta{display:flex;justify-content:space-between;align-items:baseline;margin:18px 0 10px}
+.card__cat{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ame)}
+.card__region{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+.card h3{font-family:'Playfair Display',serif;font-weight:500;font-size:27px;line-height:1.08}
+.card h3 .ja{display:inline-block;font-size:14px;letter-spacing:.26em;color:var(--sub);margin-left:12px;font-weight:400}
+.card p{font-style:italic;font-size:15.5px;line-height:1.55;color:#332e26;margin-top:13px;font-weight:300}
+.card__foot{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+.card__tag{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.04em;color:var(--sub);border:1px solid var(--line);border-radius:1px;padding:5px 10px}
+.card__url{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.04em;color:#a39c8f;text-transform:lowercase}
+
+/* intentional placeholders, typed by fidelity (honest: entry coming) */
+.ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative}
+.ph::before,.ph::after{content:"";position:absolute;width:13px;height:13px;border:1px solid var(--sub);opacity:.4}
+.ph::before{top:12px;left:12px;border-right:none;border-bottom:none}
+.ph::after{bottom:12px;right:12px;border-left:none;border-top:none}
+.ph b{font-family:'Shippori Mincho',serif;font-size:30px;color:var(--sub);font-weight:400;opacity:.5}
+.ph span{font-family:'Inter',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--sub)}
+.ph--real{background:repeating-linear-gradient(135deg,#efe9dc,#efe9dc 11px,#ece5d6 11px,#ece5d6 22px)}
+.ph--sketch{background:#f4f1e9}
+.ph--style{background:#ece7da}
+
+/* wander / map hint */
+.wander{border-top:1.5px solid var(--ink);padding:8vh 0;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.wander h2{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:clamp(28px,3.6vw,52px);line-height:1.04;max-width:560px}
+.wander p{font-size:16px;line-height:1.7;color:var(--sub);max-width:360px;margin-top:14px}
+.wander a{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--ame);padding-bottom:6px;white-space:nowrap}
+
+/* cta + foot */
+.cta{text-align:center;padding:12vh 8vw}
+.cta a{font-family:'Inter',sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--ame);padding-bottom:6px}
+.foot{border-top:1.5px solid var(--ink);padding:42px 56px;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sub)}
+.foot .brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.26em;text-transform:none;color:var(--ink)}
+
+@media(max-width:980px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.wrap{padding:0 28px}.mast{padding:20px 28px}.mast nav{display:none}}
+@media(max-width:560px){.cards{grid-template-columns:1fr}.filter{flex-direction:column;align-items:flex-start}}
+.card--soon,.stop--soon{cursor:default}.card--soon:hover .card__img img{transform:none}
+</style>
+</head>
+<body>
+
+<!-- masthead -->
+<div class="mast">
+  <div class="brand">NIPPON FOLK</div>
+  <nav><a href="/">Feature</a><a href="#">Series</a><a href="/dictionary/" class="on">Dictionary</a><a href="/map/">Map</a></nav>
+</div>
+
+<div class="wrap">
+  <!-- page head -->
+  <div class="dhead">
+    <div class="label">The Dictionary · Craft tourism of Japan</div>
+    <h1>The Dictionary</h1>
+    <div class="stand">Six doors into Japan's living crafts — where the maker stays unknown, and the beauty lives in use.</div>
+  </div>
+
+  <!-- filter: category (works) + region (quiet) -->
+  <div class="filter">
+    <div class="filter__grp">
+      <span class="filter__lab">Category</span>
+      <button class="chip chip--cat on" data-cat="all">All</button>
+      <button class="chip chip--cat" data-cat="craft">Craft</button>
+      <button class="chip chip--cat" data-cat="tourism">Tourism</button>
+      <button class="chip chip--cat" data-cat="food">Food</button>
+      <button class="chip chip--cat" data-cat="art">Art</button>
+    </div>
+    <div class="filter__grp">
+      <span class="filter__lab">Region</span>
+      <button class="chip on">All</button>
+      <button class="chip">Kyūshū</button>
+      <button class="chip">Tōhoku</button>
+      <button class="chip">Kantō</button>
+      <button class="chip">Kinki</button>
+    </div>
+  </div>
+
+  <!-- cards (carousel① six axes → dictionary records) -->
+  <div class="cards">
+
+    <a class="card" data-cat="craft" href="/craft/kyushu/onta-ware/">
+      <div class="card__img"><img src="/hero_onta_1.png" alt="Onta ware bowl — iron-dark clay, tobikanna, poured glaze"></div>
+      <div class="card__meta"><span class="card__cat">Craft</span><span class="card__region">Kyūshū · Ōita</span></div>
+      <h3>Onta Ware<span class="ja">小鹿田焼</span></h3>
+      <p>Made for the hand, not the shelf — a bowl from one valley's clay, meant to be used every day.</p>
+      <div class="card__foot"><span class="card__tag">Chikugo basin</span><span class="card__url">/craft/kyushu/onta-ware</span></div>
+    </a>
+
+    <div class="card card--soon" data-cat="tourism" >
+      <div class="card__img"><div class="ph ph--sketch"><b>温泉</b><span>Sketch coming · place</span></div></div>
+      <div class="card__meta"><span class="card__cat">Tourism</span><span class="card__region">Kyūshū · Hita</span></div>
+      <h3>Onsen<span class="ja">温泉</span></h3>
+      <p>Cedar, stone, and rising steam — the bath that has shaped a whole region's rhythm for centuries.</p>
+      <div class="card__foot"><span class="card__tag">Same basin · Onta</span><span class="card__url">/tourism/kyushu/onsen</span></div>
+    </div>
+
+    <div class="card card--soon" data-cat="craft" >
+      <div class="card__img"><div class="ph ph--real"><b>衣</b><span>Image coming · real</span></div></div>
+      <div class="card__meta"><span class="card__cat">Craft</span><span class="card__region">Loom towns</span></div>
+      <h3>Koromo<span class="ja">衣・織</span></h3>
+      <p>Before the robe, the thread — cloth still woven town by town, on looms that outlived their makers.</p>
+      <div class="card__foot"><span class="card__tag">Nishijin · Yūki · Ōshima</span><span class="card__url">/craft/{area}/textile</span></div>
+    </div>
+
+    <div class="card card--soon" data-cat="food" >
+      <div class="card__img"><div class="ph ph--real"><b>山菜</b><span>Image coming · real</span></div></div>
+      <div class="card__meta"><span class="card__cat">Food</span><span class="card__region">Mountain villages</span></div>
+      <h3>Sansai<span class="ja">山菜</span></h3>
+      <p>The mountain's short gift — wild greens gathered for a few spring weeks, served in the valley's own bowls.</p>
+      <div class="card__foot"><span class="card__tag">Forage &amp; ferment</span><span class="card__url">/food/{area}/sansai</span></div>
+    </div>
+
+    <div class="card card--soon" data-cat="art" >
+      <div class="card__img"><div class="ph ph--style"><b>浮世絵</b><span>Style coming</span></div></div>
+      <div class="card__meta"><span class="card__cat">Art</span><span class="card__region">Style</span></div>
+      <h3>Ukiyo-e<span class="ja">浮世絵</span></h3>
+      <p>The floating world, pressed by hand — landscapes and lives carved into wood, one inked layer at a time.</p>
+      <div class="card__foot"><span class="card__tag">Style · redrawn</span><span class="card__url">/art/ukiyo-e</span></div>
+    </div>
+
+    <div class="card card--soon" data-cat="craft" >
+      <div class="card__img"><div class="ph ph--real"><b>花器</b><span>Image coming · real</span></div></div>
+      <div class="card__meta"><span class="card__cat">Craft</span><span class="card__region">Vessels</span></div>
+      <h3>Ikebana<span class="ja">花器</span></h3>
+      <p>One stem, one humble vessel — arranging the empty space as carefully as the flower.</p>
+      <div class="card__foot"><span class="card__tag">Utsuwa · the gesture</span><span class="card__url">/craft/{area}/utsuwa</span></div>
+    </div>
+
+  </div>
+
+  <!-- wander → map -->
+  <div class="wander">
+    <div>
+      <h2>Every word is a door to the next.</h2>
+      <p>Onta's clay leads to the river, the river to a hot spring, the spring to the table. The relations are the route.</p>
+    </div>
+    <a href="/map/">Open the map →</a>
+  </div>
+</div>
+
+<div class="cta"><a href="#">Follow for the map ↗</a></div>
+
+<footer class="foot">
+  <div class="brand">NIPPON FOLK</div>
+  <div>A field guide to living craft · Kyūshū &amp; beyond</div>
+</footer>
+
+<script>
+document.querySelectorAll('.chip--cat').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.chip--cat').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');
+    var c=b.dataset.cat;
+    document.querySelectorAll('.card').forEach(function(card){
+      card.classList.toggle('is-hidden', c!=='all' && card.dataset.cat!==c);
+    });
+  });
+});
+</script>
+</body></html>
