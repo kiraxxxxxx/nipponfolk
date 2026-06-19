@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Map · capability TEST (keyless) — NIPPON FOLK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=Shippori+Mincho:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== NIPPON FOLK · MAP capability TEST — keyless embed, click-to-load cookie gate. NOT the live map. ===== */
+:root{--paper:#FAF8F2;--ink:#1E1A15;--sub:#736A5E;--line:#E0DACD;--ame:#8E5E32;--green:#5C6149}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Spectral',serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 48px}
+.label{font-family:'Inter',sans-serif;font-weight:500;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
+a{color:inherit}
+.mast{display:flex;justify-content:space-between;align-items:center;padding:24px 48px;border-bottom:1.5px solid var(--ink)}
+.mast .brand{font-family:'Playfair Display',serif;font-size:23px;letter-spacing:.28em}
+.mast nav{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--sub);display:flex;gap:32px}
+.mast nav a{color:var(--sub);text-decoration:none}.mast nav a.on{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px}
+
+/* TEST banner — make it unmistakable this is not the live page */
+.testbar{background:#1E1A15;color:#FAF8F2;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-align:center;padding:9px 16px}
+.testbar b{color:#E0B27A;font-weight:600}
+
+.intro{padding:6vh 0 3vh;max-width:760px}
+.intro .label{color:var(--ame);margin-bottom:18px}
+.intro h1{font-family:'Playfair Display',serif;font-weight:400;font-style:italic;font-size:clamp(34px,4.6vw,58px);line-height:1.02}
+.intro .stand{font-size:clamp(15px,1.5vw,18px);line-height:1.55;color:#3a342c;margin-top:18px;font-weight:300;max-width:560px}
+
+/* map frame */
+.mapbox{position:relative;border:1px solid var(--ink);min-height:520px;margin-top:2vh;background:#EFEBE1;overflow:hidden}
+.mapbox iframe{width:100%;height:520px;border:0;display:block}
+
+/* consent gate (shown until user accepts) */
+.gate{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 28px;background:#EFEBE1}
+.gate .ey{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ame);margin-bottom:16px}
+.gate h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(22px,2.3vw,30px);line-height:1.1;max-width:520px}
+.gate p{font-size:14.5px;line-height:1.6;color:#2b261f;margin-top:16px;max-width:500px;font-weight:300}
+.gate .row{display:flex;gap:14px;margin-top:26px;flex-wrap:wrap;justify-content:center}
+.btn{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:13px 22px;border:1px solid var(--ink);cursor:pointer;background:transparent;color:var(--ink);transition:.15s}
+.btn--accept{background:var(--ink);color:var(--paper)}
+.btn--accept:hover{background:var(--ame);border-color:var(--ame)}
+.btn--decline:hover{background:#e7e1d4}
+.gate .fine{font-family:'Inter',sans-serif;font-size:10.5px;letter-spacing:.04em;color:var(--sub);margin-top:22px;max-width:460px;line-height:1.5}
+.gate .state{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--sub);margin-top:14px}
+.gate .state b{color:var(--ame)}
+
+.note{margin:34px 0 2vh;padding:22px 26px;border:1px dashed var(--line);background:#fff;font-size:13.5px;line-height:1.6;color:#3a342c;max-width:760px}
+.note b{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ame);display:block;margin-bottom:8px}
+.note code{background:#f3efe4;padding:1px 6px;border-radius:3px;font-size:12px}
+
+.foot{border-top:1.5px solid var(--ink);padding:36px 48px;margin-top:5vh;display:flex;justify-content:space-between;align-items:center;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--sub)}
+.foot .brand{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:.26em;text-transform:none;color:var(--ink)}
+@media(max-width:900px){.wrap{padding:0 24px}.mast{padding:18px 24px}.mast nav{display:none}.mapbox iframe,.mapbox{min-height:440px}.mapbox iframe{height:440px}}
+</style>
+</head>
+<body>
+
+<div class="testbar"><b>TEST PAGE</b> · Map capability check (keyless / no billing) · the live map at <a href="/map/" style="color:#E0B27A">/map/</a> is untouched (Phase B)</div>
+
+<div class="mast">
+  <div class="brand">NIPPON FOLK</div>
+  <nav><a href="/">Feature</a><a href="#">Series</a><a href="/dictionary/">Dictionary</a><a href="/map/">Map</a><a href="#" class="on">Map·test</a></nav>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    <div class="label">Capability test · follow the water</div>
+    <h1>Does the real map draw?</h1>
+    <div class="stand">A keyless, no-billing embed of the upper Chikugo basin — centred on the unsigned-pottery valley of Onta (小鹿田焼の里). Loaded only after you consent.</div>
+  </div>
+
+  <!-- MAP — iframe is injected by JS only AFTER the user clicks Accept (click-to-load) -->
+  <div class="mapbox" id="mapbox">
+    <div class="gate" id="gate">
+      <div class="ey">Cookie consent · required for Google Maps</div>
+      <h2>This map sets Google cookies.</h2>
+      <p>Google Maps may store cookies on your device to render the map. Non-essential cookies are <strong>declined by default</strong> — nothing loads until you accept.</p>
+      <div class="row">
+        <button class="btn btn--accept" id="accept" type="button">Accept &amp; load map</button>
+        <button class="btn btn--decline" id="decline" type="button">Decline (keep off)</button>
+      </div>
+      <div class="state" id="state">Status: <b>declined</b> (default) — map not loaded</div>
+      <div class="fine">Test only. Map © Google. We add no API key and no billing here; the styled monochrome map with route pins is built in Phase B. Your choice is remembered on this device only.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>What this page verifies</b>
+    ① The real Google map draws on production (<code>nipponfolk.com</code>, HTTPS) with <strong>no API key / no billing</strong>.<br>
+    ② No mixed-content (the embed loads over HTTPS).<br>
+    ③ The cookie-consent gate works: non-essential is <strong>declined by default</strong>, the map iframe is injected <strong>only after Accept</strong> (click-to-load).<br>
+    <br>The live <code>/map/</code> keeps its NIPPON FOLK monochrome mock + “Phase B” label. Styled tiles, route polyline and Places-wired pins are Phase B (needs key + billing).
+  </div>
+</div>
+
+<footer class="foot">
+  <div class="brand">NIPPON FOLK</div>
+  <div>Capability test · not indexed · Kyūshū &amp; beyond</div>
+</footer>
+
+<script>
+(function(){
+  // Keyless privacy-by-default Google Maps embed. Centre: Onta-yaki no sato (Sarayama), 小鹿田焼の里.
+  var EMBED = "https://maps.google.com/maps?q=33.42774,130.91105&z=13&hl=en&output=embed";
+  var box = document.getElementById('mapbox');
+  var gate = document.getElementById('gate');
+  var state = document.getElementById('state');
+  var KEY = 'nf_map_consent';
+
+  function loadMap(){
+    if (document.getElementById('nf-map-iframe')) return;
+    var f = document.createElement('iframe');
+    f.id = 'nf-map-iframe';
+    f.src = EMBED;
+    f.loading = 'lazy';
+    f.referrerPolicy = 'no-referrer-when-downgrade';
+    f.title = 'Onta-yaki no sato — Google Maps (keyless test embed)';
+    f.setAttribute('allowfullscreen','');
+    box.appendChild(f);
+    gate.style.display = 'none';
+  }
+  function decline(){
+    // default state — ensure no iframe present
+    var ex = document.getElementById('nf-map-iframe');
+    if (ex) ex.remove();
+    gate.style.display = 'flex';
+    state.innerHTML = 'Status: <b>declined</b> — map not loaded';
+  }
+
+  // Default = declined. Only auto-load if user previously accepted on THIS device.
+  try { if (localStorage.getItem(KEY) === 'accepted') { loadMap(); } } catch(e){}
+
+  document.getElementById('accept').addEventListener('click', function(){
+    try { localStorage.setItem(KEY,'accepted'); } catch(e){}
+    loadMap();
+  });
+  document.getElementById('decline').addEventListener('click', function(){
+    try { localStorage.setItem(KEY,'declined'); } catch(e){}
+    decline();
+  });
+})();
+</script>
+</body></html>
